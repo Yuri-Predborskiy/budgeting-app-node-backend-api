@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Wallets', {
+    await queryInterface.createTable('accounts', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,13 +10,14 @@ module.exports = {
       },
       name: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true,
       },
       type: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.ENUM('cash', 'creditCard')
       },
-      currency: {
+      currencyCode: {
         allowNull: false,
         type: Sequelize.STRING
       },
@@ -31,6 +32,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Wallets');
+    await queryInterface.dropTable('accounts');
   }
 };

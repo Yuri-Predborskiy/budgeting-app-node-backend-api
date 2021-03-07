@@ -16,9 +16,9 @@ router.get('/:balanceId', balances.getById);
 router.post('/', balances.create);
 
 // todo: add validator and schema
-router.patch('/:walletId', balances.updateById);
+router.patch('/:accountId', balances.updateById);
 
 // todo: add validator and schema
-router.delete('/:walletId', balances.deleteById);
+router.delete('/:accountId', balances.deleteById);
 
 module.exports = router;

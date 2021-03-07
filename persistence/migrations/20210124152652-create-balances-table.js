@@ -1,30 +1,31 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Balances', {
+    await queryInterface.createTable('balances', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      walletId: {
+      accountId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         onDelete: 'RESTRICT',
+        onUpdate: 'CASCADE',
         references: {
-          model: 'Wallet',
+          model: 'accounts',
           key: 'id',
-          as: 'walletId',
-        }
+          as: 'accountId',
+        },
       },
       date: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       amount: {
         allowNull: false,
-        type: Sequelize.NUMBER
+        type: Sequelize.FLOAT
       },
       createdAt: {
         allowNull: false,
@@ -35,8 +36,14 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
+    await queryInterface.addConstraint('balances', {
+      type: 'unique',
+      fields: ['accountId', 'date'],
+      name: 'dateAccountIdUniqueKey'
+    });
+
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Balances');
+    await queryInterface.dropTable('balances');
   }
 };

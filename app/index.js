@@ -7,7 +7,7 @@ const finalErrorHandlerMiddleware = require('./middlewares/finalErrorHandler');
 const routes = require('./routes');
 
 const app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('combined'));
 
 app.get('/status', (req, res) => res.sendStatus(200));

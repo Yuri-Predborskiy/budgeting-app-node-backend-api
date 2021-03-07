@@ -1,7 +1,7 @@
-const wallets = require('./wallets');
+const accounts = require('./accounts');
 const balances = require('./balances');
 
 module.exports = {
-  wallets,
+  accounts,
   balances,
 };
