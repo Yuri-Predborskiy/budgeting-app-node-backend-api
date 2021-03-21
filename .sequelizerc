@@ -2,5 +2,5 @@ const path = require('path');
 
 module.exports = {
   'config': path.resolve('persistence', 'config.js'),
-  'migrations-path': path.resolve('persistence', 'migrations')
+  'migrations-path': path.resolve('persistence', 'migrations'),
 };

@@ -17,7 +17,7 @@ module.exports = {
         accountId: {
           type: Sequelize.INTEGER,
           allowNull: false,
-          onDelete: 'RESTRICT',
+          onDelete: 'CASCADE',
           onUpdate: 'CASCADE',
           references: {
             model: 'accounts',
@@ -28,6 +28,16 @@ module.exports = {
         amount: {
           allowNull: false,
           type: Sequelize.FLOAT
+        },
+        category: {
+          allowNull: false,
+          type: Sequelize.STRING,
+          references: {
+            model: 'categories',
+            key: 'name'
+          },
+          onUpdate: 'CASCADE',
+          onDelete:  'RESTRICT',
         },
         createdAt: {
           allowNull: false,

@@ -7,6 +7,7 @@ module.exports = {
     dialect: 'sqlite',
     timestamps: true, // required for paranoid
     paranoid: true, // set deleted at instead of actually deleting a record
+    logging: false,
   },
   // test: {
   //   username: 'database_test',
