@@ -12,3 +12,9 @@ Run migrations to create database tables
 ```
 npx sequelize-cli db:migrate
 ```
+
+#Development notes
+Creating migration skeleton
+```
+npx sequelize-cli migration:generate --name "create-expenses-table"
+```
