@@ -1,0 +1,36 @@
+const { DataTypes} = require('sequelize');
+
+const sequelize = require('../db');
+const Account = require('./account.model');
+
+const ExpenseModel = sequelize.define('expense', {
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  date: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  accountId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Account,
+      key: 'id',
+    }
+  },
+  amount: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+  },
+});
+
+ExpenseModel.belongsTo(Account, {
+  onDelete: 'CASCADE',
+  allowNull: false
+});
+
+module.exports = ExpenseModel;
