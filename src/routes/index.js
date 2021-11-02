@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const accountsRouter = require('./accounts');
 const balancesRouter = require('./balances');
-const expensesRouter = require('./expenses');
+const expensesRouter = require('./expense.router');
 // const incomesRouter = require('./incomes');
 // const plansRouter = require('./plans');
 
