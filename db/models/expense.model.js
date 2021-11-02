@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 
 const sequelize = require('../db');
 const Account = require('./account.model');
-const Category = require('./category.model');
+const ExpenseCategory = require('./expense-category.model');
 
 const ExpenseModel = sequelize.define('expense', {
   id: {
@@ -32,7 +32,7 @@ const ExpenseModel = sequelize.define('expense', {
     type: DataTypes.NUMBER,
     allowNull: false,
     references: {
-      model: Category,
+      model: ExpenseCategory,
       key: 'id'
     }
   }
@@ -42,7 +42,7 @@ ExpenseModel.belongsTo(Account, {
   onDelete: 'CASCADE',
   allowNull: false
 });
-ExpenseModel.hasOne(Category, {
+ExpenseModel.hasOne(ExpenseCategory, {
   onDelete: 'RESTRICT',
   allowNull: false
 })
