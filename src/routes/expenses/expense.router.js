@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const expenseService = require('../services/expense.service');
+const expenseService = require('../../services/expense.service');
 
 router.get('/', expenseService.getAll);
 

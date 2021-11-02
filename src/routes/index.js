@@ -1,8 +1,10 @@
 const router = require('express').Router();
 
-const accountsRouter = require('./accounts');
-const balancesRouter = require('./balances');
-const expensesRouter = require('./expense.router');
+const accountsRouter = require('./account.router');
+const balancesRouter = require('./balance.router');
+const categoriesRouter = require('./expenses/categories/expense-category.router');
+const currencyRouter = require('./currency.router');
+const expensesRouter = require('./expenses/expense.router');
 // const incomesRouter = require('./incomes');
 // const plansRouter = require('./plans');
 
@@ -10,6 +12,8 @@ const expensesRouter = require('./expense.router');
 
 router.use('/accounts', accountsRouter);
 router.use('/balances', balancesRouter);
+router.use('/categories', categoriesRouter);
+router.use('/currencies', currencyRouter);
 router.use('/expenses', expensesRouter);
 // router.use('/incomes', incomesRouter);
 // router.use('/plans', plansRouter);
