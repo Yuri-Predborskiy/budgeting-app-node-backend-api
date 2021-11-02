@@ -28,7 +28,8 @@ async function getByCode(code) {
  * @returns {Promise<Currency>}
  */
 async function create(currencyData) {
-  const { code, name, symbol } = currencyData;
+  const code = currencyData.code.toUpperCase();
+  const symbol = currencyData.symbol ? currencyData.symbol : currencyData.code
 
   const existingCurrency = getByCode(code);
   if (existingCurrency) {
@@ -37,7 +38,7 @@ async function create(currencyData) {
 
   return Currency.create({
     code,
-    name,
+    name: currencyData.name,
     symbol
   });
 }
@@ -49,11 +50,12 @@ async function create(currencyData) {
  * @returns {Promise<void>}
  */
 async function updateByCode(code, fields) {
-  const currency = getByCode(code);
+  const currency = await getByCode(code);
+  if (!currency) {
+    throw NotFoundError(`Currency not found by code ${code}`);
+  }
 
-  // todo: consider other approaches to update
-  // fields are validated in request validation step
-  for (const field of Object.keys(fields)) {
+  for (const field of Object.getOwnPropertyNames(fields)) {
     currency[field] = fields[field];
   }
 
