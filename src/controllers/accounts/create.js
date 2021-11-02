@@ -1,4 +1,4 @@
-const accountsService = require('../../services/accounts');
+const accountsService = require('../../services/account.service');
 
 async function create(req, res) {
   const { name, type, currencyCode } = req.body;

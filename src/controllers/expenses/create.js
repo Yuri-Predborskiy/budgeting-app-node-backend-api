@@ -1,4 +1,4 @@
-const balancesService = require('../../services/balances');
+const balancesService = require('../../services/balance.service');
 
 async function create(req, res) {
   const { date, categoryName, description, accountId, amount } = req.body;
