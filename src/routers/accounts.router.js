@@ -7,6 +7,7 @@ router.get('/', accountService.getAll);
 router.get('/:id', accountService.getById);
 
 // todo: add validator
+//  required fields:
 router.post('/', accountService.create);
 
 // todo: add validator

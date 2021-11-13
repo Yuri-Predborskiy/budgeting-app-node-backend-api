@@ -1,7 +1,7 @@
 const { BadRequestError, NotFoundError } = require('../utils/errors');
-const ExpenseModel = require('../../db/models/expense.model');
-const AccountModel = require('../../db/models/account.model');
-const ExpenseCategoryModel = require('../../db/models/expense-category.model');
+const ExpenseModel = require('../db/models/expense.model');
+const AccountModel = require('../db/models/account.model');
+const ExpenseCategoryModel = require('../db/models/expense-category.model');
 
 /**
  * Get all expenses

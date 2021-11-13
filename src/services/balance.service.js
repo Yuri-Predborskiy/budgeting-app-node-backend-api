@@ -1,4 +1,4 @@
-const balanceModel = require('../../db/models/balance.model');
+const balanceModel = require('../db/models/balance.model');
 
 async function create(balance) {
   return balanceModel.create(balance);

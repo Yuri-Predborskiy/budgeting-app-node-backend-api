@@ -1,4 +1,4 @@
-const { getDatabasePath } = require('../config/utils');
+const { getDatabasePath } = require('./config/utils');
 
 module.exports = {
   development: {

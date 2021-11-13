@@ -2,6 +2,7 @@ const { DataTypes} = require('sequelize');
 const sequelize = require('../db');
 const Balance = require('./balance.model');
 const Currency = require('./currency.model');
+const accountTypes = require('../../enums/account-types');
 
 const Account = sequelize.define('account', {
   id: {
@@ -16,7 +17,7 @@ const Account = sequelize.define('account', {
     unique: true,
   },
   type: {
-    type: DataTypes.ENUM('cash', 'creditCard'),
+    type: DataTypes.ENUM(accountTypes),
     allowNull: false,
   },
   currencyCode: {
