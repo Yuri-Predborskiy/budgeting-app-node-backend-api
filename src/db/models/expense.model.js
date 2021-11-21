@@ -42,9 +42,10 @@ ExpenseModel.belongsTo(Account, {
   onDelete: 'CASCADE',
   allowNull: false
 });
+
 ExpenseModel.hasOne(ExpenseCategory, {
   onDelete: 'RESTRICT',
   allowNull: false
-})
+});
 
 module.exports = ExpenseModel;

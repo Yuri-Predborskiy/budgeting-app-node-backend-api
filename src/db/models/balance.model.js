@@ -33,7 +33,7 @@ const Balance = sequelize.define('balance', {
 });
 
 Balance.belongsTo(Account, {
-  onDelete: 'RESTRICT',
+  onDelete: 'CASCADE',
   allowNull: false
 });
 

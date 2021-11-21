@@ -1,6 +1,6 @@
 const { DataTypes} = require('sequelize');
 const sequelize = require('../db');
-const Balance = require('./balance.model');
+// const Balance = require('./balance.model');
 const Currency = require('./currency.model');
 const accountTypes = require('../../enums/account-types');
 
@@ -17,7 +17,7 @@ const Account = sequelize.define('account', {
     unique: true,
   },
   type: {
-    type: DataTypes.ENUM(accountTypes),
+    type: DataTypes.ENUM(Object.values(accountTypes)),
     allowNull: false,
   },
   currencyCode: {
@@ -38,9 +38,9 @@ Account.hasOne(Currency, {
 
 // todo: resolve cyclic dependency (problem for all sequelize foreign keys?)
 // todo: check onDelete conditions, it should delete balances when deleting account
-Account.hasMany(Balance, {
-  onDelete: 'CASCADE',
-  allowNull: false
-});
+// Account.hasMany(Balance, {
+//   onDelete: 'CASCADE',
+//   allowNull: false
+// });
 
 module.exports = Account;

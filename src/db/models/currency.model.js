@@ -1,6 +1,6 @@
 const { DataTypes} = require('sequelize');
 const sequelize = require('../db');
-const Account = require('./account.model');
+// const Account = require('./account.model');
 
 const Currency = sequelize.define('currency', {
   code: {
@@ -19,6 +19,6 @@ const Currency = sequelize.define('currency', {
 });
 
 // todo: check if options are necessary
-Currency.belongsTo(Account);
+// Currency.belongsTo(Account);
 
 module.exports = Currency;

@@ -1,6 +1,6 @@
 const { DataTypes} = require('sequelize');
 const sequelize = require('../db');
-const Expense = require('./expense.model');
+// const Expense = require('./expense.model');
 
 const Category = sequelize.define('expense_category', {
   id: {
@@ -12,12 +12,13 @@ const Category = sequelize.define('expense_category', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true
   },
   description: DataTypes.STRING,
   // icon?
 });
 
 // todo: check if options are necessary
-Category.belongsTo(Expense);
+// Category.belongsTo(Expense);
 
 module.exports = Category;
