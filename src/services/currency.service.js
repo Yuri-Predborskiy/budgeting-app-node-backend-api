@@ -1,21 +1,21 @@
-const Currency = require('../../persistence/models/currency');
+const CurrencyModel = require('../db/models/currency.model');
 const { BadRequestError, NotFoundError } = require('../utils/errors');
 
 /**
  * Get all currencies
- * @returns {Promise<Currency[]>}
+ * @returns {Promise<CurrencyModel[]>}
  */
 async function getAll() {
-  return Currency.findAll();
+  return CurrencyModel.findAll();
 }
 
 /**
  * Get currency model by currency code
  * @param code
- * @returns {Promise<Currency>}
+ * @returns {Promise<CurrencyModel>}
  */
 async function getByCode(code) {
-  const currency = Currency.findByPk(code);
+  const currency = await CurrencyModel.findByPk(code);
   if (!currency) {
     throw NotFoundError(`Currency not found by code ${code}`);
   }
@@ -24,22 +24,19 @@ async function getByCode(code) {
 
 /**
  * Create new currency with code, name and symbol. Code should be unique
- * @param currencyData {{ code: string, name: string, symbol: string }}
- * @returns {Promise<Currency>}
+ * @param currency {{ code: string, name: string, symbol: string }}
+ * @returns {Promise<CurrencyModel>}
  */
-async function create(currencyData) {
-  const code = currencyData.code.toUpperCase();
-  const symbol = currencyData.symbol ? currencyData.symbol : currencyData.code
-
-  const existingCurrency = getByCode(code);
+async function create(currency) {
+  const existingCurrency = await getByCode(currency.code);
   if (existingCurrency) {
     throw new BadRequestError('Currency with this code already exists');
   }
 
-  return Currency.create({
-    code,
-    name: currencyData.name,
-    symbol
+  return CurrencyModel.create({
+    code: currency.code.toUpperCase(),
+    name: currency.name,
+    symbol: currency.symbol || currency.code.toUpperCase()
   });
 }
 
@@ -47,19 +44,14 @@ async function create(currencyData) {
  * Update currency by code
  * @param code
  * @param fields {{ name: string, symbol: string }}    object containing currency fields to update
- * @returns {Promise<void>}
+ * @returns {Promise<CurrencyModel>}
  */
-async function updateByCode(code, fields) {
+async function updateByCode(code, { name, symbol }) {
   const currency = await getByCode(code);
-  if (!currency) {
-    throw NotFoundError(`Currency not found by code ${code}`);
-  }
-
-  for (const field of Object.getOwnPropertyNames(fields)) {
-    currency[field] = fields[field];
-  }
-
-  currency.save();
+  return currency.update({
+    name,
+    symbol
+  });
 }
 
 /**
@@ -68,7 +60,7 @@ async function updateByCode(code, fields) {
  * @returns {Promise<void>}
  */
 async function deleteByCode(code) {
-  await Currency.destroy({ where: code });
+  await CurrencyModel.destroy({ where: { code } });
 }
 
 module.exports = {
