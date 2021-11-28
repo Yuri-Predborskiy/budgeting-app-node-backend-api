@@ -1,7 +1,6 @@
 const AccountModel = require('../db/models/account.model');
 const CurrencyModel = require('../db/models/currency.model');
 const { BadRequestError, NotFoundError } = require('../utils/errors');
-const accountTypes = require('../enums/account-types');
 
 /**
  * Create a new account
@@ -10,7 +9,6 @@ const accountTypes = require('../enums/account-types');
  */
 async function create(account) {
   await validateAccountName(account.name);
-  validateAccountType(account.type);
   await validateCurrencyCode(account.currencyCode);
 
   return AccountModel.create(account);
@@ -34,7 +32,6 @@ async function updateById(id, { name, type, currencyCode }) {
     throw new NotFoundError(`Account not found by id ${id}`);
   }
   await validateAccountName(name);
-  validateAccountType(type);
   await validateCurrencyCode(currencyCode);
   account.name = name;
   account.type = type;
@@ -53,16 +50,6 @@ async function validateAccountName(name) {
   const existingAccount = await AccountModel.findOne({ where: { name }});
   if (existingAccount) {
     throw new BadRequestError(`Account with name ${name} already exists!`);
-  }
-}
-
-function validateAccountType(type) {
-  if (!type) {
-    return;
-  }
-  const isValid = accountTypes.hasOwnProperty(type);
-  if (!isValid) {
-    throw new BadRequestError(`Account type ${type} is not supported!`);
   }
 }
 
