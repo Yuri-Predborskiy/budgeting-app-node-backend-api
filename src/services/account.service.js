@@ -1,5 +1,5 @@
 const AccountModel = require('../db/models/account.model');
-const CurrencyModel = require('../db/models/currency.model');
+const CurrencyService = require('../services/currency.service');
 const { BadRequestError, NotFoundError } = require('../utils/errors');
 
 /**
@@ -56,12 +56,8 @@ async function validateAccountName(name) {
 }
 
 async function validateCurrencyCode(code) {
-  if (!code) {
-    return;
-  }
-  const currency = await CurrencyModel.findOne({ where: { code }});
-  if (!currency) {
-    throw new BadRequestError(`Currency code ${code} is not valid! Create new currency to use this code`);
+  if (code) {
+    return CurrencyService.getByCode(code);
   }
 }
 

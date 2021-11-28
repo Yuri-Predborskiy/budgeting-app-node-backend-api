@@ -1,5 +1,10 @@
-const { BadRequestError, NotFoundError } = require('../utils/errors');
+const { NotFoundError } = require('../utils/errors');
 const ExpenseCategoryModel = require('../db/models/expense-category.model');
+
+// todo: consider using combined categories for expenses, incomes
+//  use name and type as combined unique key
+//  alternatively, skip category types altogether, use same categories for both expenses and incomes
+// todo: use name for primary key
 
 /**
  * Get all expenses

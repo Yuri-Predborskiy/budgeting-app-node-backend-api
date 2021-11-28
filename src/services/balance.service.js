@@ -1,13 +1,9 @@
 const BalanceModel = require('../db/models/balance.model');
-const AccountModel = require('../db/models/account.model');
+const AccountService = require('../services/account.service');
 const { NotFoundError } = require('../utils/errors');
 
 async function create(balance) {
-  const account = await AccountModel.findByPk(balance.accountId);
-  if (!account) {
-    throw new NotFoundError(`Account not found by id ${balance.accountId}`);
-  }
-
+  await AccountService.getById(balance.accountId);
   return BalanceModel.create(balance);
 }
 

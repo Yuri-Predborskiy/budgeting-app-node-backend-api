@@ -2,6 +2,7 @@ const { DataTypes} = require('sequelize');
 const sequelize = require('../db');
 // const Expense = require('./expense.model');
 
+// todo: use name as primary key, type: string
 const Category = sequelize.define('expense_category', {
   id: {
     type: DataTypes.INTEGER,
