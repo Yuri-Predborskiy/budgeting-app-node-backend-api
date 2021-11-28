@@ -23,14 +23,15 @@ async function getAll() {
 }
 
 async function getById(id) {
-  return AccountModel.findByPk(id);
+  const account = await AccountModel.findByPk(id);
+  if (!account) {
+    throw NotFoundError(`Account not found by id ${id}`);
+  }
+  return account;
 }
 
 async function updateById(id, { name, type, currencyCode }) {
-  const account = await AccountModel.findByPk(id);
-  if (!account) {
-    throw new NotFoundError(`Account not found by id ${id}`);
-  }
+  const account = await getById(id);
   await validateAccountName(name);
   await validateCurrencyCode(currencyCode);
   account.name = name;
