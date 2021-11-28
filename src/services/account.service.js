@@ -34,10 +34,11 @@ async function updateById(id, { name, type, currencyCode }) {
   const account = await getById(id);
   await validateAccountName(name);
   await validateCurrencyCode(currencyCode);
-  account.name = name;
-  account.type = type;
-  account.currencyCode = currencyCode;
-  account.save();
+  return account.update({
+    name,
+    type,
+    currencyCode
+  });
 }
 
 async function deleteById(id) {
