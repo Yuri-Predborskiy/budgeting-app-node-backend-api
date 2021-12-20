@@ -1,25 +1,14 @@
 const { DataTypes} = require('sequelize');
 const sequelize = require('../db');
-// const Expense = require('./expense.model');
 
-// todo: use name as primary key, type: string
-const Category = sequelize.define('expense_category', {
-  id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true
-  },
+const ExpenseCategory = sequelize.define('expense-category', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true
+    primaryKey: true
   },
   description: DataTypes.STRING,
-  // icon?
+  // add field to store link to icon? svg?
 });
 
-// todo: check if options are necessary
-// Category.belongsTo(Expense);
-
-module.exports = Category;
+module.exports = ExpenseCategory;

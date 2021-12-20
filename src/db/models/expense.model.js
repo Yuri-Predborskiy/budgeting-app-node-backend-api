@@ -28,7 +28,7 @@ const ExpenseModel = sequelize.define('expense', {
     allowNull: false,
   },
   description: DataTypes.STRING,
-  categoryId: {
+  categoryName: {
     type: DataTypes.NUMBER,
     allowNull: false,
     references: {

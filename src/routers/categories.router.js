@@ -1,18 +1,20 @@
 const router = require('express').Router();
 
-const expenseCategoryService = require('../services/category.service');
+const expenseCategoryService = require('../services/expense-category.service');
+
+// todo: add controller layer, accepting req, res, using req.params and returning via res.json
 
 router.get('/', expenseCategoryService.getAll);
 
-router.get('/:id', expenseCategoryService.getById);
+router.get('/:name', expenseCategoryService.getByName);
 
 // todo: add validator
 router.post('/', expenseCategoryService.create);
 
 // todo: add validator
-router.patch('/:id', expenseCategoryService.updateById);
+router.patch('/:name', expenseCategoryService.updateByName);
 
 // todo: add validator
-router.delete('/:id', expenseCategoryService.deleteById);
+router.delete('/:name', expenseCategoryService.deleteByName);
 
 module.exports = router;

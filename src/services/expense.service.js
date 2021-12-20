@@ -1,18 +1,24 @@
 const { NotFoundError } = require('../utils/errors');
 const ExpenseModel = require('../db/models/expense.model');
 const AccountService = require('../services/account.service');
-const CategoryService = require('./category.service');
+const ExpenseCategoryService = require('./expense-category.service');
 
 /**
  * Create new expense record
- * @param expense {{ accountId: number, date: date, amount: number, description: string, categoryId: number }}
+ * @param data {{ accountId: number, date: date, amount: number, [description]: string, categoryName: string }}
  * @returns { Promise<ExpenseModel> }
  */
-async function create(expense) {
-  await validateAccountId(expense.accountId);
-  await CategoryService.existsById(expense.categoryId);
+async function create(data) {
+  await AccountService.getById(data.accountId);
+  await ExpenseCategoryService.getByName(data.categoryName);
 
-  return ExpenseModel.create(expense);
+  return ExpenseModel.create({
+    accountId: data.accountId,
+    date: data.date,
+    amount: data.amount,
+    categoryName: data.categoryName,
+    description: data.description || data.categoryName
+  });
 }
 
 /**
@@ -39,19 +45,30 @@ async function getById(id) {
 /**
  * Update expense by id
  * @param id {number}
- * @param fields {{ id: number, date: date, amount: number, description: string, categoryId: number }}
+ * @param updateData {{ id: number, [date]: date, [amount]: number, [description]: string, [categoryName]: string }}
  * @returns { Promise<ExpenseModel> }
  */
-async function updateById(id, {date, description, amount, categoryId}) {
+async function updateById(id, updateData) {
   const expense = await getById(id);
-  CategoryService.existsById(categoryId);
 
-  return expense.update({
-    date,
-    description,
-    amount,
-    categoryId
-  });
+  if (typeof updateData.date !== 'undefined') {
+    expense.date = updateData.date;
+  }
+
+  if (typeof updateData.amount !== 'undefined') {
+    expense.amount = updateData.amount;
+  }
+
+  if (typeof updateData.description !== 'undefined') {
+    expense.description = updateData.description;
+  }
+
+  if (typeof updateData.categoryName !== 'undefined') {
+    await ExpenseCategoryService.getByName(updateData.categoryName);
+    expense.categoryName = updateData.categoryName;
+  }
+
+  return expense.save();
 }
 
 /**
@@ -61,10 +78,6 @@ async function updateById(id, {date, description, amount, categoryId}) {
  */
 async function deleteById(id) {
   await ExpenseModel.destroy({ where: id });
-}
-
-async function validateAccountId(id) {
-  return AccountService.getById(id);
 }
 
 module.exports = {
