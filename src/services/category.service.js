@@ -73,10 +73,15 @@ async function deleteById(id) {
   await ExpenseCategoryModel.destroy({ where: id });
 }
 
+async function existsById(id) {
+  await getById(id);
+}
+
 module.exports = {
   getById,
   getAll,
   create,
   updateById,
-  deleteById
+  deleteById,
+  existsById
 };

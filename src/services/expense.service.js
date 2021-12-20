@@ -1,7 +1,7 @@
 const { NotFoundError } = require('../utils/errors');
 const ExpenseModel = require('../db/models/expense.model');
 const AccountService = require('../services/account.service');
-const ExpenseCategoryModel = require('../db/models/expense-category.model');
+const CategoryService = require('./category.service');
 
 /**
  * Create new expense record
@@ -10,11 +10,7 @@ const ExpenseCategoryModel = require('../db/models/expense-category.model');
  */
 async function create(expense) {
   await validateAccountId(expense.accountId);
-  // todo: update validation for category, reuse "get by id"
-  const category = await ExpenseCategoryModel.findByPk(expense.categoryId);
-  if (!category) {
-    throw NotFoundError(`Category not found by id ${expense.categoryId}`);
-  }
+  await CategoryService.existsById(expense.categoryId);
 
   return ExpenseModel.create(expense);
 }
@@ -25,15 +21,6 @@ async function create(expense) {
  */
 async function getAll() {
   return ExpenseModel.findAll();
-}
-
-/**
- * Get all expenses for account
- * @param accountId {number}
- * @returns { Promise<ExpenseModel[]> }
- */
-async function getAllForAccount(accountId) {
-  return ExpenseModel.findAll({ where: accountId });
 }
 
 /**
@@ -56,10 +43,8 @@ async function getById(id) {
  * @returns { Promise<ExpenseModel> }
  */
 async function updateById(id, {date, description, amount, categoryId}) {
-  const expense = await ExpenseModel.findByPk(id);
-  if (!expense) {
-    throw NotFoundError(`Expense not found by id ${id}`);
-  }
+  const expense = await getById(id);
+  CategoryService.existsById(categoryId);
 
   return expense.update({
     date,
@@ -85,7 +70,6 @@ async function validateAccountId(id) {
 module.exports = {
   getById,
   getAll,
-  getAllForAccount,
   create,
   updateById,
   deleteById
