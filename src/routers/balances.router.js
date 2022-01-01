@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const balancesController = require('../controllers/balances');
+const balancesController = require('../controllers/balances.controller');
 
 router.get('/', balancesController.getAll);
 
