@@ -1,5 +1,5 @@
 const BalanceModel = require('../db/models/balance.model');
-const AccountService = require('../services/account.service');
+const AccountService = require('./accounts.service');
 const { NotFoundError } = require('../utils/errors');
 
 async function create(balance) {

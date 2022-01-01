@@ -1,18 +1,18 @@
 const router = require('express').Router();
 
-const balanceService = require('../services/balance.service');
+const balancesController = require('../controllers/balances');
 
-router.get('/', balanceService.getAll);
+router.get('/', balancesController.getAll);
 
-router.get('/:id', balanceService.getById);
-
-// todo: add validator
-router.post('/', balanceService.create);
+router.get('/:id', balancesController.getById);
 
 // todo: add validator
-router.patch('/:id', balanceService.updateById);
+router.post('/', balancesController.create);
 
 // todo: add validator
-router.delete('/:id', balanceService.deleteById);
+router.patch('/:id', balancesController.updateById);
+
+// todo: add validator
+router.delete('/:id', balancesController.deleteById);
 
 module.exports = router;

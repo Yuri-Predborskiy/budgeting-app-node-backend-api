@@ -1,4 +1,4 @@
-const AccountsService = require('../services/account.service');
+const AccountsService = require('../services/accounts.service');
 
 async function create(req, res) {
   const account = await AccountsService.create(req.body);
@@ -24,8 +24,6 @@ async function deleteById(req, res) {
   await AccountsService.deleteById(req.params.id);
   res.status(200).send();
 }
-
-module.exports = create;
 
 module.exports = {
   create,

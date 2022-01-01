@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const expenseCategoryService = require('../services/expense-category.service');
+const expenseCategoryService = require('../services/expense-categories.service');
 
 // todo: add controller layer, accepting req, res, using req.params and returning via res.json
 

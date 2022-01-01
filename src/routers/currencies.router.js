@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const currencyService = require('../services/currency.service');
+const currencyService = require('../services/currencies.service');
 
 router.get('/', currencyService.getAll);
 
