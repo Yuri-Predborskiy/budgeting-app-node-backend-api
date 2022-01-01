@@ -1,6 +1,6 @@
 const BalanceModel = require('../db/models/balance.model');
 const AccountService = require('./accounts.service');
-const { NotFoundError } = require('../utils/errors');
+const { BadRequestError, NotFoundError } = require('../utils/errors');
 
 /**
  * Create a new balance
@@ -14,6 +14,17 @@ async function create(balanceData) {
   await AccountService.getById(balanceData.accountId);
   const dateWithoutTime = new Date(balanceData.date);
   dateWithoutTime.setUTCHours(0, 0, 0, 0);
+
+  const existingBalance = await BalanceModel.findOne({
+    where: {
+      date: dateWithoutTime,
+      accountId: balanceData.accountId
+    }
+  });
+  if (existingBalance) {
+    throw new BadRequestError('Balance for this date already exists!');
+  }
+
   const balance = {
     accountId: balanceData.accountId,
     amount: balanceData.amount,
