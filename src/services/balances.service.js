@@ -2,8 +2,23 @@ const BalanceModel = require('../db/models/balance.model');
 const AccountService = require('./accounts.service');
 const { NotFoundError } = require('../utils/errors');
 
-async function create(balance) {
-  await AccountService.getById(balance.accountId);
+/**
+ * Create a new balance
+ * @param balanceData balance fields
+ * @param balanceData.accountId {number} account id
+ * @param balanceData.amount {number} balance to date in account currency
+ * @param balanceData.date {date} date when balance was observed
+ * @returns {Promise<BalanceModel>}
+ */
+async function create(balanceData) {
+  await AccountService.getById(balanceData.accountId);
+  const dateWithoutTime = new Date(balanceData.date);
+  dateWithoutTime.setUTCHours(0, 0, 0, 0);
+  const balance = {
+    accountId: balanceData.accountId,
+    amount: balanceData.amount,
+    date: dateWithoutTime
+  };
   return BalanceModel.create(balance);
 }
 
