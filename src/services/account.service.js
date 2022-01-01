@@ -2,9 +2,13 @@ const AccountModel = require('../db/models/account.model');
 const CurrencyService = require('../services/currency.service');
 const { BadRequestError, NotFoundError } = require('../utils/errors');
 
+// todo: define account types enum
 /**
  * Create a new account
- * @param account { name: string, type: accountTypes, currencyCode: string } data for the new account
+ * @param account data for creating a new account
+ * @param account.name {string} account name
+ * @param account.type {string} type of account
+ * @param account.currencyCode {string}
  * @returns Promise<AccountModel>
  */
 async function create(account) {

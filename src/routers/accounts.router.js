@@ -1,19 +1,18 @@
 const router = require('express').Router();
 
-const accountService = require('../services/account.service');
+const accountsController = require('../controllers/accounts.controller');
 
-router.get('/', accountService.getAll);
+router.get('/', accountsController.getAll);
 
-router.get('/:id', accountService.getById);
-
-// todo: add validator
-//  required fields:
-router.post('/', accountService.create);
+router.get('/:id', accountsController.getById);
 
 // todo: add validator
-router.patch('/:id', accountService.updateById);
+router.post('/', accountsController.create);
 
 // todo: add validator
-router.delete('/:id', accountService.deleteById);
+router.patch('/:id', accountsController.updateById);
+
+// todo: add validator
+router.delete('/:id', accountsController.deleteById);
 
 module.exports = router;
