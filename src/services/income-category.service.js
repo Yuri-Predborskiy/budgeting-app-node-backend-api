@@ -15,7 +15,7 @@ async function getAll() {
  * @returns {Promise<IncomeCategoryModel>}
  */
 async function getByName(name) {
-  const category = IncomeCategoryModel.findByPk(name);
+  const category = await IncomeCategoryModel.findByPk(name);
   if (!category) {
     throw new NotFoundError(`Category not found by name "${name}"`);
   }

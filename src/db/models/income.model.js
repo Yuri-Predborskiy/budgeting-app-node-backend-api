@@ -2,9 +2,9 @@ const { DataTypes } = require('sequelize');
 
 const sequelize = require('../db');
 const Account = require('./account.model');
-const ExpenseCategory = require('./expense-category.model');
+const IncomeCategory = require('./income-category.model');
 
-const ExpenseModel = sequelize.define('expense', {
+const IncomeModel = sequelize.define('income', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -32,22 +32,22 @@ const ExpenseModel = sequelize.define('expense', {
     type: DataTypes.STRING,
     allowNull: false,
     references: {
-      model: ExpenseCategory,
+      model: IncomeCategory,
       key: 'name'
     }
   }
 });
 
-ExpenseModel.belongsTo(Account, {
+IncomeModel.belongsTo(Account, {
   onUpdate: 'CASCADE',
   onDelete: 'CASCADE',
   allowNull: false
 });
 
-ExpenseModel.hasOne(ExpenseCategory, {
+IncomeModel.hasOne(IncomeCategory, {
   onUpdate: 'CASCADE',
   onDelete: 'RESTRICT',
   allowNull: false
 });
 
-module.exports = ExpenseModel;
+module.exports = IncomeModel;
