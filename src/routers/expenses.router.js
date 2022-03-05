@@ -1,21 +1,21 @@
 const router = require('express').Router();
 
-const expenseService = require('../services/expenses.service');
+const expenseController = require('../controllers/expense.controller');
 
 // may require pagination
-router.get('/', expenseService.getAll);
+router.get('/', expenseController.getAll);
 
 // may be redundant
-router.get('/:id', expenseService.getById);
+router.get('/:id', expenseController.getById);
 
 // todo: add validator
 //  required fields: account, amount, date, description
-router.post('/', expenseService.create);
+router.post('/', expenseController.create);
 
 // todo: add validator
 //  required fields: amount, date, description
-router.patch('/:id', expenseService.updateById);
+router.patch('/:id', expenseController.updateById);
 
-router.delete('/:id', expenseService.deleteById);
+router.delete('/:id', expenseController.deleteById);
 
 module.exports = router;

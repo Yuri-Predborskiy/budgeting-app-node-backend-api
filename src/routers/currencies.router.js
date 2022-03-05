@@ -1,18 +1,18 @@
 const router = require('express').Router();
 
-const currencyService = require('../services/currencies.service');
+const currenciesController = require('../controllers/currency.controller')
 
-router.get('/', currencyService.getAll);
+router.get('/', currenciesController.getAll);
 
-router.get('/:code', currencyService.getByCode);
-
-// todo: add validator
-router.post('/', currencyService.create);
+router.get('/:code', currenciesController.getByCode);
 
 // todo: add validator
-router.patch('/:code', currencyService.updateByCode);
+router.post('/', currenciesController.create);
 
 // todo: add validator
-router.delete('/:code', currencyService.deleteByCode);
+router.patch('/:code', currenciesController.updateByCode);
+
+// todo: add validator
+router.delete('/:code', currenciesController.deleteByCode);
 
 module.exports = router;

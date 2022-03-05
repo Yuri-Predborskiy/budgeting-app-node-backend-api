@@ -1,5 +1,5 @@
 const BalanceModel = require('../db/models/balance.model');
-const AccountService = require('./accounts.service');
+const AccountService = require('./account.service');
 const { BadRequestError, NotFoundError } = require('../utils/errors');
 
 /**

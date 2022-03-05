@@ -1,27 +1,27 @@
-const BalancesService = require('../services/balances.service');
+const BalanceService = require('../services/balance.service');
 
 async function create(req, res) {
-  const balance = await BalancesService.create(req.body);
+  const balance = await BalanceService.create(req.body);
   res.json(balance);
 }
 
 async function getAll(req, res) {
-  const balances = await BalancesService.getAll();
+  const balances = await BalanceService.getAll();
   res.json(balances);
 }
 
 async function getById(req, res) {
-  const balance = await BalancesService.getById(req.params.id);
+  const balance = await BalanceService.getById(req.params.id);
   res.json(balance);
 }
 
 async function updateById(req, res) {
-  const balance = await BalancesService.updateById(req.params.id, req.body);
+  const balance = await BalanceService.updateById(req.params.id, req.body);
   res.json(balance);
 }
 
 async function deleteById(req, res) {
-  await BalancesService.deleteById(req.params.id);
+  await BalanceService.deleteById(req.params.id);
   res.status(200).send();
 }
 

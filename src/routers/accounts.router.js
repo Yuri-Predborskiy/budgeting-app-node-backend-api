@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const accountsController = require('../controllers/accounts.controller');
+const accountsController = require('../controllers/account.controller');
 
 router.get('/', accountsController.getAll);
 

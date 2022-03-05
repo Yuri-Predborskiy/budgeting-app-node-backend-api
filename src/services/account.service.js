@@ -1,5 +1,5 @@
 const AccountModel = require('../db/models/account.model');
-const CurrencyService = require('./currencies.service');
+const CurrencyService = require('./currency.service');
 const { BadRequestError, NotFoundError } = require('../utils/errors');
 
 // todo: define account types enum

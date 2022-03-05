@@ -1,7 +1,7 @@
 const { NotFoundError } = require('../utils/errors');
 const ExpenseModel = require('../db/models/expense.model');
-const AccountService = require('./accounts.service');
-const ExpenseCategoryService = require('./expense-categories.service');
+const AccountService = require('./account.service');
+const ExpenseCategoryService = require('./expense-category.service');
 
 /**
  * Create new expense record
