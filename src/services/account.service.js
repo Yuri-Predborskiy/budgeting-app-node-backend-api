@@ -29,7 +29,7 @@ async function getAll() {
 async function getById(id) {
   const account = await AccountModel.findByPk(id);
   if (!account) {
-    throw NotFoundError(`Account not found by id ${id}`);
+    throw new NotFoundError(`Account not found by id ${id}`);
   }
   return account;
 }

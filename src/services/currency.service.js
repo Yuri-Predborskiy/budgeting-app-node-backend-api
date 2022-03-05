@@ -17,7 +17,7 @@ async function getAll() {
 async function getByCode(code) {
   const currency = await CurrencyModel.findByPk(code);
   if (!currency) {
-    throw NotFoundError(`Currency not found by code ${code}`);
+    throw new NotFoundError(`Currency not found by code ${code}`);
   }
   return currency;
 }

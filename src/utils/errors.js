@@ -1,16 +1,16 @@
 class BadRequestError extends Error {
   constructor(message) {
     super(message || 'Bad request');
-    this.name = 'Bad request error';
-    this.code = 400;
+    this.name = 'Bad request';
+    this.statusCode = 400;
   }
 }
 
 class NotFoundError extends Error {
   constructor(message) {
     super(message || 'Not found');
-    this.name = 'Not found error';
-    this.code = 404;
+    this.name = 'Not found';
+    this.statusCode = 404;
   }
 }
 
