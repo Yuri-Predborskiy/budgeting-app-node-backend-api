@@ -3,17 +3,11 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable(
-      'categories', {
-        id: {
-          allowNull: false,
-          autoIncrement: true,
-          primaryKey: true,
-          type: Sequelize.INTEGER
-        },
+      'expense-categories', {
         name: {
           allowNull: false,
-          type: Sequelize.STRING,
-          unique: 'categories_name_unique_constraint',
+          primaryKey: true,
+          type: Sequelize.STRING
         },
         createdAt: {
           allowNull: false,
@@ -31,6 +25,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('categories');
+    await queryInterface.dropTable('expense-category');
   }
 };

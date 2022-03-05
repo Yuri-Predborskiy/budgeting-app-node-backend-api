@@ -4,10 +4,10 @@ module.exports = {
     await queryInterface.createTable(
       'balances', {
         id: {
+          type: Sequelize.INTEGER,
           allowNull: false,
           autoIncrement: true,
           primaryKey: true,
-          type: Sequelize.INTEGER
         },
         accountId: {
           type: Sequelize.INTEGER,
@@ -17,7 +17,6 @@ module.exports = {
           references: {
             model: 'accounts',
             key: 'id',
-            as: 'accountId',
           },
         },
         date: {
@@ -39,13 +38,13 @@ module.exports = {
         deletedAt: {
           type: Sequelize.DATE,
         }
-      }
-    );
-    await queryInterface.addConstraint(
-      'balances', {
-        type: 'unique',
-        fields: ['accountId', 'date'],
-        name: 'dateAccountIdUniqueKey'
+      },
+      {
+        uniqueKeys: {
+          dateAccountIdUniqueKey: {
+            fields: ['accountId', 'date']
+          }
+        }
       }
     );
   },
