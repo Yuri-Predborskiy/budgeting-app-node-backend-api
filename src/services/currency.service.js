@@ -15,7 +15,8 @@ async function getAll() {
  * @returns {Promise<CurrencyModel>}
  */
 async function getByCode(code) {
-  const currency = await CurrencyModel.findByPk(code);
+  const validCode = getValidCurrencyCode(code);
+  const currency = await CurrencyModel.findByPk(validCode);
   if (!currency) {
     throw new NotFoundError(`Currency not found by code ${code}`);
   }
@@ -33,10 +34,11 @@ async function create(currency) {
     throw new BadRequestError('Currency with this code already exists');
   }
 
+  const code = getValidCurrencyCode(currency.code);
   return CurrencyModel.create({
-    code: currency.code.toUpperCase(),
+    code,
     name: currency.name,
-    symbol: currency.symbol || currency.code.toUpperCase()
+    symbol: currency.symbol || code
   });
 }
 
@@ -60,7 +62,14 @@ async function updateByCode(code, { name, symbol }) {
  * @returns {Promise<void>}
  */
 async function deleteByCode(code) {
-  await CurrencyModel.destroy({ where: { code } });
+  await CurrencyModel.destroy({ where: { code: getValidCurrencyCode(code) } });
+}
+
+function getValidCurrencyCode(code) {
+  if (!code || typeof code !== 'string') {
+    throw new BadRequestError(`Currency code not supported: "${code}"`);
+  }
+  return code.toUpperCase();
 }
 
 module.exports = {
